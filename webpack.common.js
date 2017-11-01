@@ -29,7 +29,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      title: 'SmartTrack',
+      title: 'Vet POC',
       template: 'src/my-index.ejs'
     })
   ],
