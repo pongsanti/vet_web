@@ -1,12 +1,41 @@
 import React, {Component} from 'react';
-import { Menu, Container, Dropdown, Image, Header } from 'semantic-ui-react'
+import { connect } from 'react-redux';
+import { Menu, Modal, Container, Dropdown, Image, Header, Button, Icon } from 'semantic-ui-react'
+
+import {doctorGet} from './actions'
 
 import LOGO from './assets/HTML5_Badge_256.png';
 
+const mapStateToProps = state => {
+  const {ui} = state
+  return {
+    load: ui.load
+  }
+}
+
 class Vet extends Component {
+  componentWillMount () {
+    const {dispatch} = this.props;
+    dispatch(doctorGet());
+  }
+
   render () {
     return (
       <div>
+        <Modal open={this.props.load}>
+          <Header icon='archive' content='Archive Old Messages' />
+          <Modal.Content>
+            <p>Your inbox is getting full, would you like us to enable automatic archiving of old messages?</p>
+          </Modal.Content>
+          <Modal.Actions>
+            <Button basic color='red' inverted>
+              <Icon name='remove' /> No
+            </Button>
+            <Button color='green' inverted>
+              <Icon name='checkmark' /> Yes
+            </Button>
+          </Modal.Actions>
+        </Modal>
         <Menu fixed='top' inverted>
           <Container>
             <Menu.Item as='a' header>
@@ -56,4 +85,4 @@ class Vet extends Component {
   }
 }
 
-export default Vet;
+export default connect(mapStateToProps)(Vet);
