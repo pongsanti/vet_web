@@ -1,7 +1,10 @@
 import React from 'react'
 import ReactDOM from 'react-dom';
-import { Button } from 'semantic-ui-react'
-import ButtonExampleButton from './button_example';
+import { Provider } from 'react-redux'
+import { AppContainer } from 'react-hot-loader';
+import { Button } from 'semantic-ui-react';
+import configureStore from './store/configureStore';
+import Vet from './vet';
 
 import 'semantic-ui-css/semantic.min.css';
 
@@ -12,11 +15,21 @@ const component = () => {
 }
 document.body.appendChild(component());
 
+const store = configureStore();
+
 const render = Component => {
   ReactDOM.render(
-    <Component/>,
+    <AppContainer>
+      <Provider store={store}>
+        <Component/>
+      </Provider>
+    </AppContainer>,
     document.getElementById('root')
   );
 }
 
-render(ButtonExampleButton);
+render(Vet);
+
+if (module.hot) {
+  module.hot.accept('./vet', () => { render(Vet) });
+}
