@@ -20,21 +20,15 @@ class Vet extends Component {
   }
 
   render () {
+    const {load} = this.props;
     return (
       <div>
-        <Modal open={this.props.load}>
-          <Header icon='archive' content='Archive Old Messages' />
+        <Modal open={load} size='mini'>
           <Modal.Content>
-            <p>Your inbox is getting full, would you like us to enable automatic archiving of old messages?</p>
+            <Container textAlign='center'>
+              <span><Icon loading name='spinner' size='large' /> Loading...</span>
+            </Container>
           </Modal.Content>
-          <Modal.Actions>
-            <Button basic color='red' inverted>
-              <Icon name='remove' /> No
-            </Button>
-            <Button color='green' inverted>
-              <Icon name='checkmark' /> Yes
-            </Button>
-          </Modal.Actions>
         </Modal>
         <Menu fixed='top' inverted>
           <Container>
