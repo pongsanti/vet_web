@@ -70,12 +70,12 @@ class Vet extends Component {
           </Container>
         </Menu>
         <Container style={{ marginTop: '7em' }}>
-          <Route component={Doctor} />
-          <Route component={Vehicle} />
+          <Route path='/doctors' component={Doctor} />
+          <Route path='/vehicles' component={Vehicle} />
         </Container>
       </div>
     )
   }
 }
 
-export default connect(mapStateToProps)(Vet);
+export default withRouter(connect(mapStateToProps)(Vet));
