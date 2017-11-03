@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Menu, Modal, Container, Dropdown, Image, Header, Button, Icon } from 'semantic-ui-react';
 import Doctor from './components/doctor';
 import Vehicle from './components/vehicle';
+import Appointment from './components/appointment';
 
 import history from './history';
 import {doctorGet} from './actions'
@@ -50,28 +51,13 @@ class Vet extends Component {
             </Menu.Item>
             <Menu.Item as='a' onClick={this.onMenuClick.bind(this, 'doctors')}><Icon name='doctor' /> Doctors</Menu.Item>
             <Menu.Item as='a' onClick={this.onMenuClick.bind(this, 'vehicles')}><Icon name='shipping' /> Vehicles</Menu.Item>
-            <Dropdown item simple text='Dropdown'>
-              <Dropdown.Menu>
-                <Dropdown.Item>List Item</Dropdown.Item>
-                <Dropdown.Item>List Item</Dropdown.Item>
-                <Dropdown.Divider />
-                <Dropdown.Header>Header Item</Dropdown.Header>
-                <Dropdown.Item>
-                  <i className='dropdown icon' />
-                  <span className='text'>Submenu</span>
-                  <Dropdown.Menu>
-                    <Dropdown.Item>List Item</Dropdown.Item>
-                    <Dropdown.Item>List Item</Dropdown.Item>
-                  </Dropdown.Menu>
-                </Dropdown.Item>
-                <Dropdown.Item>List Item</Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
+            <Menu.Item as='a' onClick={this.onMenuClick.bind(this, 'appointments')}><Icon name='calendar' /> Appointments</Menu.Item>
           </Container>
         </Menu>
         <Container style={{ marginTop: '7em' }}>
           <Route path='/doctors' component={Doctor} />
           <Route path='/vehicles' component={Vehicle} />
+          <Route path='/appointments' component={Appointment} />
         </Container>
       </div>
     )
