@@ -22,6 +22,7 @@ const handleFetchRecv = (state, action) => ({
 const reducer = handleActions({
   [ActionTypes.vehicle_get]: handleFetchStart,
   [ActionTypes.vehicle_post]: handleFetchStart,
+  [ActionTypes.vehicle_del]: handleFetchStart,
   [ActionTypes.vehicle_get_recv]: (state, action) => ({
     ...state,
     is_fetching: false,
@@ -29,7 +30,7 @@ const reducer = handleActions({
     error: null,
   }),
   [ActionTypes.vehicle_post_recv]: handleFetchRecv,
-  // [ActionTypes.doctor_del_recv]: handleFetchRecv,  
+  [ActionTypes.vehicle_del_recv]: handleFetchRecv,  
   [ActionTypes.vehicle_fail]: (state, action) => ({
     ...state,
     is_fetching: false,

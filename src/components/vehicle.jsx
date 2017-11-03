@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { Header, Icon, Grid, Table, Button } from 'semantic-ui-react';
 
-import { vehicleGet } from '../actions'
+import { vehicleGet, vehicleDelete } from '../actions'
 
 import VehicleForm from './vehicle_form';
 
@@ -25,7 +25,9 @@ class Vehicle extends Component {
   }
 
   onDeleteClick (vehicle) {
-    console.log(vehicle.id);
+    const {dispatch} = this.props;
+    dispatch(vehicleDelete(vehicle.id))
+    .then(this.getVehicles.bind(this));
   }
 
   vehicles (vehicles) {
@@ -34,7 +36,7 @@ class Vehicle extends Component {
         <Table.Cell>{v.id}</Table.Cell>
         <Table.Cell>{v.type}</Table.Cell>
         <Table.Cell>{v.plate}</Table.Cell>
-        <Table.Cell><Button icon secondary onClick={this.onDeleteClick.bind(this, v)}><Icon name='trash' /></Button></Table.Cell>
+        <Table.Cell><Button title='Delete' icon secondary onClick={this.onDeleteClick.bind(this, v)}><Icon name='trash' /></Button></Table.Cell>
       </Table.Row>
     )) : [];
   }

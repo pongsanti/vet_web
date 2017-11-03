@@ -12,6 +12,9 @@ export const vehicle_fail = createAction('VEHICLE_FAIL');
 export const vehicle_post = createAction('VEHICLE_POST');
 export const vehicle_post_recv = createAction('VEHICLE_POST_RECV');
 
+export const vehicle_del = createAction('VEHICLE_DEL');
+export const vehicle_del_recv = createAction('VEHICLE_DEL_RECV');
+
 export const vehicleGet = () => {
   return (dispatch, getState) => {
     const {user} = getState();
@@ -35,6 +38,19 @@ export const vehiclePost = (postData) => {
       dispatchWithLoadingSpinnerOff(dispatch, vehicle_post_recv(json));
       // dispatch route
       // history.push('/users');
+      return json;
+    }, fetchErrorMessageHandler.bind(this, dispatch, vehicle_fail)
+    );
+  }
+}
+
+export const vehicleDelete = (id) => {
+  return (dispatch, getState) => {
+
+    dispatchWithLoadingSpinner(dispatch, vehicle_del());
+    return fetchPromise(`${config.URL}/vehicles/${id}`, fetchOption(fetchHeader(), 'DELETE'))
+    .then(json => {
+      dispatchWithLoadingSpinnerOff(dispatch, vehicle_del_recv());
       return json;
     }, fetchErrorMessageHandler.bind(this, dispatch, vehicle_fail)
     );

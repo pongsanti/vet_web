@@ -8,6 +8,8 @@ const TYPE_OPTIONS = [
   { text: 'Bike', value: 'Bike' },
   { text: 'Hashback', value: 'Hashback' },
   { text: 'Sedan', value: 'Sedan' },
+  { text: 'Van', value: 'Van' },
+  { text: 'Truck', value: 'Truck' },
   { text: 'SUV', value: 'SUV' },
 ];
 
