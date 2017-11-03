@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { Header, Icon, Grid, Table, Button } from 'semantic-ui-react';
 
-import {doctorGet} from '../actions';
+import {doctorGet, doctorDelete} from '../actions';
 
 import DoctorForm from './doctor_form';
 
@@ -16,11 +16,18 @@ const mapStateToProps = state => {
 class Doctor extends Component {
   componentWillMount () {
     const {dispatch} = this.props;
-    dispatch(doctorGet());
+    this.getDoctors();
   }
 
   onDeleteClick (doctor) {
-    console.log(doctor);
+    const {dispatch} = this.props;
+    dispatch(doctorDelete(doctor.id))
+    .then(this.getDoctors.bind(this));
+  }
+
+  getDoctors () {
+    const {dispatch} = this.props;
+    dispatch(doctorGet());
   }
 
   doctors (doctors) {

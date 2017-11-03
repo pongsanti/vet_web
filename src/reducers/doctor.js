@@ -13,6 +13,12 @@ const handleFetchStart = (state, action) => ({
   error: null
 })
 
+const handleFetchRecv = (state, action) => ({
+  ...state,
+  is_fetching: false,
+  error: null,
+})
+
 const reducer = handleActions({
   [ActionTypes.doctor_get]: handleFetchStart,
   [ActionTypes.doctor_post]: handleFetchStart,
@@ -22,11 +28,8 @@ const reducer = handleActions({
     doctors: action.payload.doctors,
     error: null,
   }),
-  [ActionTypes.doctor_post_recv]: (state, action) => ({
-    ...state,
-    is_fetching: false,
-    error: null,
-  }),
+  [ActionTypes.doctor_post_recv]: handleFetchRecv,
+  [ActionTypes.doctor_del_recv]: handleFetchRecv,  
   [ActionTypes.doctor_fail]: (state, action) => ({
     ...state,
     is_fetching: false,

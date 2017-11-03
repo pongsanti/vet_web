@@ -25,6 +25,12 @@ class DoctorForm extends Component {
     }
   }
 
+  onResetClick () {
+    this.setState({
+      name: ''
+    })
+  }
+
   render () {
     const {name} = this.state;
 
@@ -42,6 +48,7 @@ class DoctorForm extends Component {
               onChange={this.onNameChange.bind(this)} />
           </Form.Field>
           <Button primary size='small' type='submit'>Submit</Button>
+          <Button size='small' type='reset' onClick={this.onResetClick.bind(this)}>Reset</Button>
         </Form>
       </div>
     )

@@ -12,6 +12,9 @@ export const doctor_fail = createAction('DOCTOR_FAIL');
 export const doctor_post = createAction('DOCTOR_POST');
 export const doctor_post_recv = createAction('DOCTOR_POST_RECV');
 
+export const doctor_del = createAction('DOCTOR_DEL');
+export const doctor_del_recv = createAction('DOCTOR_DEL_RECV');
+
 export const doctorGet = () => {
   return (dispatch, getState) => {
     const {user} = getState();
@@ -35,6 +38,19 @@ export const doctorPost = (postData) => {
       dispatchWithLoadingSpinnerOff(dispatch, doctor_post_recv(json));
       // dispatch route
       // history.push('/users');
+      return json;
+    }, fetchErrorMessageHandler.bind(this, dispatch, doctor_fail)
+    );
+  }
+}
+
+export const doctorDelete = (id) => {
+  return (dispatch, getState) => {
+
+    dispatchWithLoadingSpinner(dispatch, doctor_del());
+    return fetchPromise(`${config.URL}/doctors/${id}`, fetchOption(fetchHeader(), 'DELETE'))
+    .then(json => {
+      dispatchWithLoadingSpinnerOff(dispatch, doctor_del_recv());
       return json;
     }, fetchErrorMessageHandler.bind(this, dispatch, doctor_fail)
     );
