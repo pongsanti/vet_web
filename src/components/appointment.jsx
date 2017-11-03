@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { Header, Icon, Grid, Table, Button } from 'semantic-ui-react';
+import BigCalendar from 'react-big-calendar';
 
 import {doctorGet, doctorDelete} from '../actions';
 
@@ -37,6 +38,22 @@ class Appointment extends Component {
             Appointments
           </Header.Content>
         </Header>
+        <Grid divided stackable>
+          <Grid.Row>
+            <Grid.Column width={12}>
+              <BigCalendar style={{minHeight: 700}}
+                step={60}
+                events={[]}
+                views={['month']}
+                popup={true}
+                defaultDate={new Date()}
+              />
+            </Grid.Column>
+            <Grid.Column width={4}>
+              Form here
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>        
       </div>
     )
   }

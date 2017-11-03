@@ -9,6 +9,7 @@ import history from './history'
 import Vet from './vet';
 
 import 'semantic-ui-css/semantic.min.css';
+import 'react-big-calendar/lib/css/react-big-calendar.css';
 
 const component = () => {
   var element = document.createElement('div');

@@ -11,6 +11,10 @@ import {doctorGet} from './actions'
 
 import LOGO from './assets/HTML5_Badge_256.png';
 
+import moment from 'moment';
+import BigCalendar from 'react-big-calendar';
+BigCalendar.momentLocalizer(moment);
+
 const mapStateToProps = state => {
   const {ui} = state
   return {
