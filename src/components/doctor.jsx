@@ -35,7 +35,7 @@ class Doctor extends Component {
       <Table.Row key={d.id}>
         <Table.Cell>{d.id}</Table.Cell>
         <Table.Cell>{d.name}</Table.Cell>
-        <Table.Cell><Button icon secondary onClick={this.onDeleteClick.bind(this, d)}><Icon name='trash' /></Button></Table.Cell>
+        <Table.Cell><Button title='Delete' icon secondary onClick={this.onDeleteClick.bind(this, d)}><Icon name='trash' /></Button></Table.Cell>
       </Table.Row>
     )) : [];
   }
