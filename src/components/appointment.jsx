@@ -3,35 +3,45 @@ import { connect } from 'react-redux';
 import { Header, Icon, Grid, Table, Button } from 'semantic-ui-react';
 import BigCalendar from 'react-big-calendar';
 
-import {doctorGet, doctorDelete} from '../actions';
-
+import {doctorAppGet} from '../actions';
+import {parseDateToDateObject} from './date';
 import DoctorAppForm from './doctor_app_form';
 
 const mapStateToProps = state => {
-  const {doctor} = state
+  const {doctor_app} = state
   return {
-    doctors: doctor.doctors
+    apps: doctor_app.apps
   }
 }
 
 class Appointment extends Component {
   componentWillMount () {
     const {dispatch} = this.props;
-    this.getDoctors();
+    this.getDoctorApps();
   }
 
   onDeleteClick (doctor) {
     const {dispatch} = this.props;
-    dispatch(doctorDelete(doctor.id))
-    .then(this.getDoctors.bind(this));
+    
   }
 
-  getDoctors () {
+  getDoctorApps () {
     const {dispatch} = this.props;
-    dispatch(doctorGet());
+    dispatch(doctorAppGet());
+  }
+
+  buildEvents (apps) {
+    return apps.map(a => ({
+      title: a.name,
+      start: parseDateToDateObject(a.start_at),
+      end: parseDateToDateObject(a.end_at),
+    }));
   }
 
   render () {
+    const {apps} = this.props;
+    const events = this.buildEvents(apps);
+
     return (
       <div>
         <Header as='h1'>
@@ -45,8 +55,8 @@ class Appointment extends Component {
             <Grid.Column width={12}>
               <BigCalendar style={{minHeight: 700}}
                 step={60}
-                events={[]}
-                views={['month']}
+                events={events}
+                views={['month', 'week', 'work_week', 'day']}
                 popup={true}
                 defaultDate={new Date()}
               />

@@ -4,9 +4,9 @@ import { Header, Form, Button, Dropdown } from 'semantic-ui-react';
 import moment from 'moment';
 import DateTime from 'react-datetime';
 
-import {DATE_FORMAT, TIME_FORMAT} from './date';
+import {PICKER_DATE_FORMAT, PICKER_TIME_FORMAT, serializePostData} from './date';
 
-import {doctorGet, doctorAppPost} from '../actions';
+import {doctorGet, doctorAppPost, doctorAppGet} from '../actions';
 
 const TIME_CONSTRAINTS = {
   hours: {
@@ -34,7 +34,7 @@ class DoctorAppForm extends Component {
   }
 
   defaultState () {
-    const defaultStart = moment().startOf('hour');
+    const defaultStart = moment().startOf('day').add(8, 'h');
     return {
       doctor_id: '',
       start_at: defaultStart,
@@ -44,11 +44,12 @@ class DoctorAppForm extends Component {
 
   componentWillMount () {
     const {dispatch} = this.props;
-    dispatch(doctorGet());
+    dispatch(doctorGet())
   }
 
-  dateFormat (date) {
-    return date.format('YYYY-MM-DD HH:mm:00');
+  refreshAppointments () {
+    const {dispatch} = this.props;
+    dispatch(doctorAppGet());
   }
 
   onSubmit () {
@@ -56,9 +57,10 @@ class DoctorAppForm extends Component {
     const {doctor_id, start_at, end_at} = this.state;
     if (doctor_id && start_at) {
       dispatch(doctorAppPost(doctor_id, {
-        start_at: this.dateFormat(start_at),
-        end_at: this.dateFormat(end_at),
-      }));
+        start_at: serializePostData(start_at),
+        end_at: serializePostData(end_at),
+      }))
+      .then(this.refreshAppointments.bind(this));
     }
   }
 
@@ -106,16 +108,16 @@ class DoctorAppForm extends Component {
             <label>Start At</label>
             <DateTime onChange={this.onStartAtChange.bind(this)}
               value={start_at} 
-              dateFormat={DATE_FORMAT}
-              timeFormat={TIME_FORMAT}
+              dateFormat={PICKER_DATE_FORMAT}
+              timeFormat={PICKER_TIME_FORMAT}
               timeConstraints={TIME_CONSTRAINTS}/>
           </Form.Field>
           <Form.Field disabled>
             <label>End At</label>
             <DateTime
               value={end_at} 
-              dateFormat={DATE_FORMAT}
-              timeFormat={TIME_FORMAT}
+              dateFormat={PICKER_DATE_FORMAT}
+              timeFormat={PICKER_TIME_FORMAT}
               timeConstraints={TIME_CONSTRAINTS}/>
           </Form.Field>            
           <Button primary size='small' type='submit'>Submit</Button>
