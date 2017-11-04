@@ -55,7 +55,7 @@ class VehicleForm extends Component {
         </Header.Content>
       </Header>
       <Form onSubmit={this.onSubmit.bind(this)} size='small'>
-      <Form.Field required>
+        <Form.Field required>
           <label>Type</label>
           <Dropdown placeholder='Vehicle type'
             search selection options={TYPE_OPTIONS}

@@ -5,6 +5,8 @@ import BigCalendar from 'react-big-calendar';
 
 import {doctorGet, doctorDelete} from '../actions';
 
+import DoctorAppForm from './doctor_app_form';
+
 const mapStateToProps = state => {
   const {doctor} = state
   return {
@@ -50,7 +52,7 @@ class Appointment extends Component {
               />
             </Grid.Column>
             <Grid.Column width={4}>
-              Form here
+              <DoctorAppForm />
             </Grid.Column>
           </Grid.Row>
         </Grid>        
