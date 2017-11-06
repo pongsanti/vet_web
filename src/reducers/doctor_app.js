@@ -22,7 +22,7 @@ const handleFetchRecv = (state, action) => ({
 const reducer = handleActions({
   [ActionTypes.d_app_get]: handleFetchStart,
   [ActionTypes.d_app_post]: handleFetchStart,
-  // [ActionTypes.doctor_del]: handleFetchStart,
+  [ActionTypes.d_app_del]: handleFetchStart,
   [ActionTypes.d_app_get_recv]: (state, action) => ({
     ...state,
     is_fetching: false,
@@ -30,7 +30,7 @@ const reducer = handleActions({
     error: null,
   }),
   [ActionTypes.d_app_post_recv]: handleFetchRecv,
-  // [ActionTypes.doctor_del_recv]: handleFetchRecv,  
+  [ActionTypes.d_app_del_recv]: handleFetchRecv,  
   [ActionTypes.d_app_fail]: (state, action) => ({
     ...state,
     is_fetching: false,

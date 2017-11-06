@@ -43,3 +43,16 @@ export const doctorAppPost = (doctor_id, postData) => {
     );
   }
 }
+
+export const doctorAppDelete = (id) => {
+  return (dispatch, getState) => {
+
+    dispatchWithLoadingSpinner(dispatch, d_app_del());
+    return fetchPromise(`${config.URL}/doctor/apps/${id}`, fetchOption(fetchHeader(), 'DELETE'))
+    .then(json => {
+      dispatchWithLoadingSpinnerOff(dispatch, d_app_del_recv());
+      return json;
+    }, fetchErrorMessageHandler.bind(this, dispatch, d_app_fail)
+    );
+  }
+}
