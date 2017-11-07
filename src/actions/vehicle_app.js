@@ -46,7 +46,7 @@ export const vehicleAppDelete = (id) => {
   return (dispatch, getState) => {
 
     dispatchWithLoadingSpinner(dispatch, v_app_del());
-    return fetchPromise(`${config.URL}/doctor/apps/${id}`, fetchOption(fetchHeader(), 'DELETE'))
+    return fetchPromise(`${config.URL}/vehicle/apps/${id}`, fetchOption(fetchHeader(), 'DELETE'))
     .then(json => {
       dispatchWithLoadingSpinnerOff(dispatch, v_app_del_recv());
       return json;

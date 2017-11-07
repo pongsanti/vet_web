@@ -6,6 +6,8 @@ import BigCalendar from 'react-big-calendar';
 import {vehicleAppGet, vehicleAppDelete} from '../actions';
 import {parseDateToDateObject} from './date';
 
+import VehicleAppForm from './vehicle_app_form';
+
 const mapStateToProps = state => {
   const {vehicle_app} = state
   return {
@@ -89,7 +91,7 @@ class VehicleApp extends Component {
               <BigCalendar style={{minHeight: 700}}
                 step={60}
                 events={events}
-                views={['month', 'week', 'work_week', 'day']}
+                views={['month', 'week', 'work_week', 'day', 'agenda']}
                 popup={true}
                 defaultDate={new Date()}
                 selected={selected}
@@ -97,7 +99,7 @@ class VehicleApp extends Component {
               />
             </Grid.Column>
             <Grid.Column width={4}>
-              
+              <VehicleAppForm />
               <Divider section />
               {selected && this.eventInfo(selected)}
             </Grid.Column>
