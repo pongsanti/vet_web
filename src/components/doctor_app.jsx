@@ -80,7 +80,7 @@ class DoctorApp extends Component {
         <Header as='h1'>
           <Icon name='calendar' />
           <Header.Content>
-            Appointments
+            Doctor Appointments
           </Header.Content>
         </Header>
         <Grid divided stackable>
@@ -89,11 +89,11 @@ class DoctorApp extends Component {
               <BigCalendar style={{minHeight: 700}}
                 step={60}
                 events={events}
-                views={['month', 'week', 'work_week', 'day']}
+                views={['month', 'week', 'work_week', 'day', 'agenda']}
                 popup={true}
                 defaultDate={new Date()}
-                selected={selected}
                 onSelectEvent={this.onSelectEvent.bind(this)}
+                selected={selected}
               />
             </Grid.Column>
             <Grid.Column width={4}>
