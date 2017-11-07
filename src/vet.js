@@ -5,6 +5,7 @@ import { Menu, Modal, Container, Dropdown, Image, Header, Button, Icon } from 's
 import Doctor from './components/doctor';
 import Vehicle from './components/vehicle';
 import Appointment from './components/appointment';
+import VehicleApp from './components/vehicle_app';
 
 import history from './history';
 import {doctorGet} from './actions'
@@ -55,13 +56,15 @@ class Vet extends Component {
             </Menu.Item>
             <Menu.Item as='a' onClick={this.onMenuClick.bind(this, 'doctors')}><Icon name='doctor' /> Doctors</Menu.Item>
             <Menu.Item as='a' onClick={this.onMenuClick.bind(this, 'vehicles')}><Icon name='shipping' /> Vehicles</Menu.Item>
-            <Menu.Item as='a' onClick={this.onMenuClick.bind(this, 'appointments')}><Icon name='calendar' /> Appointments</Menu.Item>
+            <Menu.Item as='a' onClick={this.onMenuClick.bind(this, 'appointments')}><Icon name='calendar' /> Doctor Apps</Menu.Item>
+            <Menu.Item as='a' onClick={this.onMenuClick.bind(this, 'vehicle_apps')}><Icon name='calendar' /> Vehicle Apps</Menu.Item>
           </Container>
         </Menu>
         <Container style={{ marginTop: '7em' }}>
           <Route path='/doctors' component={Doctor} />
           <Route path='/vehicles' component={Vehicle} />
           <Route path='/appointments' component={Appointment} />
+          <Route path='/vehicle_apps' component={VehicleApp} />
         </Container>
       </div>
     )
