@@ -14,7 +14,7 @@ const mapStateToProps = state => {
   }
 }
 
-class Appointment extends Component {
+class DoctorApp extends Component {
   constructor (props) {
     super(props);
 
@@ -108,4 +108,4 @@ class Appointment extends Component {
   }
 }
 
-export default connect(mapStateToProps)(Appointment);
+export default connect(mapStateToProps)(DoctorApp);
