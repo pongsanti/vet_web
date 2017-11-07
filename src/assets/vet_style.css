@@ -1,0 +1,4 @@
+ /* calendar Sunday background color */
+.rbc-day-bg:first-child {
+	background-color: #fbe2e3;
+}
