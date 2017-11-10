@@ -7,11 +7,13 @@ import {doctorAppGet, doctorAppDelete} from '../actions';
 import {parseDateToDateObject} from './date';
 import DoctorAppForm from './doctor_app_form';
 import AppCard from './app_card';
+import Toggles from './toggles'
 
 const mapStateToProps = state => {
-  const {doctor_app} = state
+  const {doctor_app, doctor} = state
   return {
-    apps: doctor_app.apps
+    apps: doctor_app.apps,
+    doctors: doctor.doctors || [],
   }
 }
 
@@ -64,8 +66,9 @@ class DoctorApp extends Component {
 
   render () {
     const {selected} = this.state;
-    const {apps} = this.props;
+    const {apps, doctors} = this.props;
     const events = this.buildEvents(apps);
+    console.log(doctors);
 
     return (
       <div>
@@ -89,6 +92,15 @@ class DoctorApp extends Component {
               />
             </Grid.Column>
             <Grid.Column width={4}>
+              <div>
+                <Header as='h4'>
+                  <Header.Content>
+                    Doctor filter
+                  </Header.Content>
+                </Header>
+                <Toggles items={doctors} />
+              </div>
+              <Divider section />
               <DoctorAppForm />
               <Divider section />
               {selected && this.eventInfo(selected)}
