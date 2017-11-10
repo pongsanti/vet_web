@@ -75,6 +75,12 @@ class DoctorAppForm extends Component {
     })
   }
 
+  onEndAtChange (date) {
+    this.setState({
+      end_at: date,
+    })
+  } 
+
   doctorOptions (doctors) {
     return doctors.map(d => ({
       text: d.name,
@@ -112,9 +118,9 @@ class DoctorAppForm extends Component {
               timeFormat={PICKER_TIME_FORMAT}
               timeConstraints={TIME_CONSTRAINTS}/>
           </Form.Field>
-          <Form.Field disabled>
+          <Form.Field>
             <label>End At</label>
-            <DateTime
+            <DateTime onChange={this.onEndAtChange.bind(this)}
               value={end_at} 
               dateFormat={PICKER_DATE_FORMAT}
               timeFormat={PICKER_TIME_FORMAT}

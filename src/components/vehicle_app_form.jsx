@@ -75,6 +75,12 @@ class VehicleAppForm extends Component {
     })
   }
 
+  onEndAtChange (date) {
+    this.setState({
+      end_at: date,
+    })
+  }
+
   vehicleOptions (vehicles) {
     return vehicles.map(v => ({
       text: `${v.plate} - ${v.type}`,
@@ -112,9 +118,9 @@ class VehicleAppForm extends Component {
               timeFormat={PICKER_TIME_FORMAT}
               timeConstraints={TIME_CONSTRAINTS}/>
           </Form.Field>
-          <Form.Field disabled>
+          <Form.Field>
             <label>End At</label>
-            <DateTime
+            <DateTime onChange={this.onEndAtChange.bind(this)}
               value={end_at} 
               dateFormat={PICKER_DATE_FORMAT}
               timeFormat={PICKER_TIME_FORMAT}
