@@ -6,6 +6,7 @@ import BigCalendar from 'react-big-calendar';
 import {doctorAppGet, doctorAppDelete} from '../actions';
 import {parseDateToDateObject} from './date';
 import DoctorAppForm from './doctor_app_form';
+import DoctorAppCard from './doctor_app_card';
 
 const mapStateToProps = state => {
   const {doctor_app} = state
@@ -56,18 +57,7 @@ class DoctorApp extends Component {
   }
 
   eventInfo (event) {
-    const {title, start_string, end_string, id} = event;
-    return (
-      <Card color='black'>
-        <Card.Content header={title} meta='Doctor name'/>
-        <Card.Content description={`${start_string} - ${end_string}`} />
-        <Card.Content extra>
-          <Button title='Delete' size='tiny' basic primary onClick={this.onDeleteClick.bind(this, id)}>
-            Delete
-          </Button>
-        </Card.Content>
-      </Card>
-    )
+    return (<DoctorAppCard app={event} onDeleteClick={this.onDeleteClick} />);
   }
 
   render () {
