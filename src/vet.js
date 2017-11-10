@@ -6,6 +6,7 @@ import Doctor from './components/doctor';
 import Vehicle from './components/vehicle';
 import DoctorApp from './components/doctor_app';
 import VehicleApp from './components/vehicle_app';
+import {USER_EMAIL} from './helpers/user';
 
 import history from './history';
 import {doctorGet} from './actions'
@@ -63,7 +64,7 @@ class Vet extends Component {
               <Menu.Item className='item'>
                 <Icon name='user' />
               </Menu.Item>
-              <Dropdown text='patima.p@postnerd.co.th' pointing className='link item'>
+              <Dropdown text={USER_EMAIL} pointing className='link item'>
                 <Dropdown.Menu>
                   <Dropdown.Item>Profile</Dropdown.Item>
                   <Dropdown.Item>Log out</Dropdown.Item>

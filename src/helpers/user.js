@@ -1,0 +1,1 @@
+export const USER_EMAIL = 'patima.p@postnerd.co.th'
