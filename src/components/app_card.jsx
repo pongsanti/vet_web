@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Button, Card } from 'semantic-ui-react';
 import {USER_EMAIL} from '../helpers/user';
 
-class DoctorAppCard extends Component {
+class AppCard extends Component {
 
   onDeleteClick (id) {
     const {onDeleteClick} = this.props;
@@ -13,11 +13,11 @@ class DoctorAppCard extends Component {
   }
 
   render () {
-    const {app} = this.props;
+    const {app, meta} = this.props;
     const {title, start_string, end_string, id} = app;
     return (
       <Card color='black'>
-        <Card.Content header={title} meta='Doctor name'/>
+        <Card.Content header={title} meta={meta} />
         <Card.Content description={`${start_string} - ${end_string}`} />
         <Card.Content description={`Originator: ${USER_EMAIL}`} />
         <Card.Content extra>
@@ -30,9 +30,10 @@ class DoctorAppCard extends Component {
   }
 }
 
-DoctorAppCard.propTypes = {
+AppCard.propTypes = {
   app: PropTypes.object.isRequired,
+  meta: PropTypes.string,
   onDeleteClick: PropTypes.func,
 }
 
-export default DoctorAppCard;
+export default AppCard;

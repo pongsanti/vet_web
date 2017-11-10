@@ -7,6 +7,7 @@ import {vehicleAppGet, vehicleAppDelete} from '../actions';
 import {parseDateToDateObject} from './date';
 
 import VehicleAppForm from './vehicle_app_form';
+import AppCard from './app_card';
 
 const mapStateToProps = state => {
   const {vehicle_app} = state
@@ -58,18 +59,9 @@ class VehicleApp extends Component {
   }
 
   eventInfo (event) {
-    const {title, start_string, end_string, id} = event;
-    return (
-      <Card color='black'>
-        <Card.Content header={title} meta='Vehicle details'/>
-        <Card.Content description={`${start_string} - ${end_string}`} />
-        <Card.Content extra>
-          <Button title='Delete' size='tiny' basic primary onClick={this.onDeleteClick.bind(this, id)}>
-            Delete
-          </Button>
-        </Card.Content>
-      </Card>
-    )
+    return (<AppCard app={event}
+      meta='Vehicle details'
+      onDeleteClick={this.onDeleteClick.bind(this)} />);
   }
 
   render () {
