@@ -58,6 +58,18 @@ class Vet extends Component {
             <Menu.Item as='a' onClick={this.onMenuClick.bind(this, 'vehicles')}><Icon name='shipping' /> Vehicles</Menu.Item>
             <Menu.Item as='a' onClick={this.onMenuClick.bind(this, 'doctor_apps')}><Icon name='calendar' /> Doctor Apps</Menu.Item>
             <Menu.Item as='a' onClick={this.onMenuClick.bind(this, 'vehicle_apps')}><Icon name='calendar' /> Vehicle Apps</Menu.Item>
+            
+            <Menu.Menu position='right'>
+              <Menu.Item className='item'>
+                <Icon name='user' />
+              </Menu.Item>
+              <Dropdown text='patima.p@postnerd.co.th' pointing className='link item'>
+                <Dropdown.Menu>
+                  <Dropdown.Item>Profile</Dropdown.Item>
+                  <Dropdown.Item>Log out</Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
+            </Menu.Menu>
           </Container>
         </Menu>
         <Container style={{ marginTop: '7em' }}>
