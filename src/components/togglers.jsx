@@ -2,12 +2,23 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import { Checkbox, Divider } from 'semantic-ui-react';
 
+const CHK_BOX_SPAN_STYLE = {marginRight: 25};
+
 class Togglers extends Component {
   constructor (props) {
     super(props);
 
     this.state = {
-      actives: new Set(),
+      actives: new Set(props.items),
+    }
+  }
+
+  componentWillReceiveProps (nextProps) {
+    const {items} = this.props;
+    if (nextProps.items !== items) {
+      this.setState({
+        actives: new Set(nextProps.items),
+      })
     }
   }
 
@@ -20,9 +31,21 @@ class Togglers extends Component {
       actives : newActives,
     })
 
-    const {onClick} = this.props;
-    if (onClick) {
-      onClick(newActives);
+    const {onChange} = this.props;
+    if (onChange) {
+      onChange(newActives);
+    }
+  }
+
+  onSelectAllChange (event, data) {
+    const {onChange, items} = this.props;
+    const newActives = (data.checked) ? new Set(items) : new Set();
+    this.setState({
+      actives : newActives,
+    })
+
+    if (onChange) {
+      onChange(newActives);
     }
   }
 
@@ -30,7 +53,7 @@ class Togglers extends Component {
     const {actives} =  this.state;
     const {items} = this.props;
     return items.map(i => 
-      <span style={{marginRight: 25}} key={i.id}>
+      <span style={CHK_BOX_SPAN_STYLE} key={i.id}>
         <Checkbox
           checked={actives.has(i)}
           fitted
@@ -42,8 +65,17 @@ class Togglers extends Component {
   }
 
   render () {
+    const {actives} =  this.state;
+    const {items} = this.props;
     return (
       <div>
+        <Checkbox
+          style={CHK_BOX_SPAN_STYLE}
+          checked={actives.size === items.length}
+          fitted
+          slider
+          label='Select ALL' 
+          onChange={this.onSelectAllChange.bind(this)} />
         {this.items()}
       </div>
     )
@@ -52,7 +84,7 @@ class Togglers extends Component {
 
 Togglers.propTypes = {
   items: PropTypes.array.isRequired,
-  onClick: PropTypes.func,
+  onChange: PropTypes.func,
 }
 
 export default Togglers;

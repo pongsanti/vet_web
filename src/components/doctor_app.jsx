@@ -23,6 +23,7 @@ class DoctorApp extends Component {
 
     this.state = {
       selected: null,
+      active_doctor_ids: new Set(),
     }
   }
   componentWillMount () {
@@ -35,15 +36,21 @@ class DoctorApp extends Component {
     dispatch(doctorAppGet());
   }
 
-  buildEvents (apps) {
-    return apps.map(a => ({
+  buildEvent (a) {
+    return {
       id: a.id,
       title: a.name,
       start: parseDateToDateObject(a.start_at),
       start_string: a.start_at,
       end: parseDateToDateObject(a.end_at),
       end_string: a.end_at,
-    }));
+    };
+  }
+
+  buildEvents (apps) {
+    const {active_doctor_ids} = this.state;
+    const filtered = apps.filter(a => active_doctor_ids.has(a.doctor_id));
+    return filtered.map(this.buildEvent);
   }
 
   onSelectEvent (event) {
@@ -64,6 +71,12 @@ class DoctorApp extends Component {
       onDeleteClick={this.onDeleteClick.bind(this)} />);
   }
 
+  onTogglerChange (actives) {
+    const active_doctor_ids = new Set();
+    actives.forEach(a => active_doctor_ids.add(a.id));
+    this.setState({ active_doctor_ids });
+  }
+
   render () {
     const {selected} = this.state;
     const {apps, doctors} = this.props;
@@ -81,7 +94,7 @@ class DoctorApp extends Component {
           <Grid.Row>
             <Grid.Column width={12}>
               <Segment size='mini' color='teal'>
-                <Togglers items={doctors} />
+                <Togglers items={doctors} onChange={this.onTogglerChange.bind(this)} />
               </Segment>            
               <BigCalendar style={{minHeight: 700}}
                 step={60}
