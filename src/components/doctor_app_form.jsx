@@ -55,7 +55,7 @@ class DoctorAppForm extends Component {
   onSubmit () {
     const {dispatch} = this.props;
     const {doctor_id, start_at, end_at} = this.state;
-    if (doctor_id && start_at) {
+    if (doctor_id && start_at && end_at && (start_at < end_at)) {
       dispatch(doctorAppPost(doctor_id, {
         start_at: serializePostData(start_at),
         end_at: serializePostData(end_at),
@@ -118,7 +118,7 @@ class DoctorAppForm extends Component {
               timeFormat={PICKER_TIME_FORMAT}
               timeConstraints={TIME_CONSTRAINTS}/>
           </Form.Field>
-          <Form.Field>
+          <Form.Field required>
             <label>End At</label>
             <DateTime onChange={this.onEndAtChange.bind(this)}
               value={end_at} 
