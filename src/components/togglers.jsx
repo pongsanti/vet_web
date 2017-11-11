@@ -51,14 +51,14 @@ class Togglers extends Component {
 
   items () {
     const {actives} =  this.state;
-    const {items} = this.props;
+    const {items, title_field} = this.props;
     return items.map(i => 
       <span style={CHK_BOX_SPAN_STYLE} key={i.id}>
         <Checkbox
           checked={actives.has(i)}
           fitted
           slider
-          label={i.name}
+          label={i[title_field]}
           onChange={this.onChange.bind(this, i)} />
       </span>
     );
@@ -84,6 +84,7 @@ class Togglers extends Component {
 
 Togglers.propTypes = {
   items: PropTypes.array.isRequired,
+  title_field: PropTypes.string.isRequired,
   onChange: PropTypes.func,
 }
 

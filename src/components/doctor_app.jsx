@@ -31,6 +31,22 @@ class DoctorApp extends Component {
     this.getDoctorApps();
   }
 
+  componentWillReceiveProps (nextProps) {
+    const {doctors} = this.props;
+    if (nextProps.doctors !== doctors) {
+      const active_doctor_ids = this.doctor_ids_set(nextProps.doctors);
+      this.setState({
+        active_doctor_ids,
+      })
+    }
+  }
+
+  doctor_ids_set (doctors) {
+    const ids = new Set();
+    doctors.forEach(d => ids.add(d.id));
+    return ids;
+  }
+
   getDoctorApps () {
     const {dispatch} = this.props;
     dispatch(doctorAppGet());
@@ -72,8 +88,7 @@ class DoctorApp extends Component {
   }
 
   onTogglerChange (actives) {
-    const active_doctor_ids = new Set();
-    actives.forEach(a => active_doctor_ids.add(a.id));
+    const active_doctor_ids = this.doctor_ids_set(actives);
     this.setState({ active_doctor_ids });
   }
 
@@ -94,7 +109,10 @@ class DoctorApp extends Component {
           <Grid.Row>
             <Grid.Column width={12}>
               <Segment size='mini' color='teal'>
-                <Togglers items={doctors} onChange={this.onTogglerChange.bind(this)} />
+                <Togglers
+                  items={doctors}
+                  title_field='name'
+                  onChange={this.onTogglerChange.bind(this)} />
               </Segment>            
               <BigCalendar style={{minHeight: 700}}
                 step={60}
