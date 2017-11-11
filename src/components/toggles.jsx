@@ -1,24 +1,44 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import { Header, Form, Button, Dropdown } from 'semantic-ui-react';
+import { Checkbox, Divider } from 'semantic-ui-react';
 
 class Toggles extends Component {
+  constructor (props) {
+    super(props);
 
-  onClick (item) {
+    this.state = {
+      actives: new Set(),
+    }
+  }
+
+  onChange (item, event, data) {
+    const {actives} = this.state;
+    const newActives = (new Set(actives))
+
+    const _ = (data.checked) ? newActives.add(item) : newActives.delete(item);
+    this.setState({
+      actives : newActives,
+    })
+
     const {onClick} = this.props;
     if (onClick) {
-      onClick(item);
+      onClick(newActives);
     }
   }
 
   items () {
+    const {actives} =  this.state;
     const {items} = this.props;
     return items.map(i => 
-      <Button toggle
-        size='tiny'
-        color='teal'
-        compact
-        onClick={this.onClick.bind(this, i)}>{i.name}</Button>
+      <span style={{marginRight: 25}}>
+        <Checkbox
+          checked={actives.has(i)}
+          key={i.id}
+          fitted
+          slider
+          label={i.name}
+          onChange={this.onChange.bind(this, i)} />
+      </span>
     );
   }
 

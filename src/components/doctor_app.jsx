@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import { Header, Icon, Grid, Table, Button, Card, Divider } from 'semantic-ui-react';
+import { Header, Icon, Grid, Table, Button, Card, Divider, Segment } from 'semantic-ui-react';
 import BigCalendar from 'react-big-calendar';
 
 import {doctorAppGet, doctorAppDelete} from '../actions';
@@ -81,6 +81,9 @@ class DoctorApp extends Component {
         <Grid divided stackable>
           <Grid.Row>
             <Grid.Column width={12}>
+              <Segment size='mini' color='teal'>
+                <Toggles items={doctors} />
+              </Segment>            
               <BigCalendar style={{minHeight: 700}}
                 step={60}
                 events={events}
@@ -92,15 +95,6 @@ class DoctorApp extends Component {
               />
             </Grid.Column>
             <Grid.Column width={4}>
-              <div>
-                <Header as='h4'>
-                  <Header.Content>
-                    Doctor filter
-                  </Header.Content>
-                </Header>
-                <Toggles items={doctors} />
-              </div>
-              <Divider section />
               <DoctorAppForm />
               <Divider section />
               {selected && this.eventInfo(selected)}

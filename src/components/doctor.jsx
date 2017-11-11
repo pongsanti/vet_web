@@ -5,6 +5,7 @@ import { Header, Icon, Grid, Table, Button } from 'semantic-ui-react';
 import {doctorGet, doctorDelete} from '../actions';
 
 import DoctorForm from './doctor_form';
+import Toggles from './toggles';
 
 const mapStateToProps = state => {
   const {doctor} = state
