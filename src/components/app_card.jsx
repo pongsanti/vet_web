@@ -14,12 +14,15 @@ class AppCard extends Component {
 
   render () {
     const {app, meta} = this.props;
-    const {title, start_string, end_string, id} = app;
+    const {title, start_string, end_string, id, vehicle_id} = app;
     return (
       <Card color='black'>
         <Card.Content header={title} meta={meta} />
         <Card.Content description={`${start_string} - ${end_string}`} />
         <Card.Content description={`Originator: ${USER_EMAIL}`} />
+        { vehicle_id &&
+          <Card.Content description={`Location: Sukhumvit Rd. (${vehicle_id})`} />
+        }
         <Card.Content extra>
           <Button title='Delete' size='tiny' basic primary onClick={this.onDeleteClick.bind(this, id)}>
             Delete

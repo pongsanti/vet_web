@@ -58,6 +58,7 @@ class VehicleApp extends Component {
     return {
       id: a.id,
       title: `${a.plate} (${a.type})`,
+      vehicle_id: a.vehicle_id,
       start: parseDateToDateObject(a.start_at),
       start_string: a.start_at,
       end: parseDateToDateObject(a.end_at),
