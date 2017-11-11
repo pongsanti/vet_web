@@ -66,8 +66,8 @@ class Vet extends Component {
               </Menu.Item>
               <Dropdown text={USER_EMAIL} pointing className='link item'>
                 <Dropdown.Menu>
-                  <Dropdown.Item>Profile</Dropdown.Item>
-                  <Dropdown.Item>Log out</Dropdown.Item>
+                  <Dropdown.Item disabled>Profile</Dropdown.Item>
+                  <Dropdown.Item disabled>Log out</Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
             </Menu.Menu>
