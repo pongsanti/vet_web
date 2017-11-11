@@ -57,7 +57,7 @@ class VehicleApp extends Component {
   buildEvent (a) {
     return {
       id: a.id,
-      title: `${a.type} (${a.plate})`,
+      title: `${a.plate} (${a.type})`,
       start: parseDateToDateObject(a.start_at),
       start_string: a.start_at,
       end: parseDateToDateObject(a.end_at),
