@@ -7,7 +7,7 @@ import {doctorAppGet, doctorAppDelete} from '../actions';
 import {parseDateToDateObject} from './date';
 import DoctorAppForm from './doctor_app_form';
 import AppCard from './app_card';
-import Toggles from './toggles'
+import Togglers from './togglers'
 
 const mapStateToProps = state => {
   const {doctor_app, doctor} = state
@@ -68,7 +68,6 @@ class DoctorApp extends Component {
     const {selected} = this.state;
     const {apps, doctors} = this.props;
     const events = this.buildEvents(apps);
-    console.log(doctors);
 
     return (
       <div>
@@ -82,7 +81,7 @@ class DoctorApp extends Component {
           <Grid.Row>
             <Grid.Column width={12}>
               <Segment size='mini' color='teal'>
-                <Toggles items={doctors} />
+                <Togglers items={doctors} />
               </Segment>            
               <BigCalendar style={{minHeight: 700}}
                 step={60}

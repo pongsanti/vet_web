@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import { Checkbox, Divider } from 'semantic-ui-react';
 
-class Toggles extends Component {
+class Togglers extends Component {
   constructor (props) {
     super(props);
 
@@ -13,7 +13,7 @@ class Toggles extends Component {
 
   onChange (item, event, data) {
     const {actives} = this.state;
-    const newActives = (new Set(actives))
+    const newActives = (new Set(actives));
 
     const _ = (data.checked) ? newActives.add(item) : newActives.delete(item);
     this.setState({
@@ -30,10 +30,9 @@ class Toggles extends Component {
     const {actives} =  this.state;
     const {items} = this.props;
     return items.map(i => 
-      <span style={{marginRight: 25}}>
+      <span style={{marginRight: 25}} key={i.id}>
         <Checkbox
           checked={actives.has(i)}
-          key={i.id}
           fitted
           slider
           label={i.name}
@@ -51,9 +50,9 @@ class Toggles extends Component {
   }
 }
 
-Toggles.propTypes = {
+Togglers.propTypes = {
   items: PropTypes.array.isRequired,
   onClick: PropTypes.func,
 }
 
-export default Toggles;
+export default Togglers;
