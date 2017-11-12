@@ -74,6 +74,7 @@ class Vet extends Component {
           </Container>
         </Menu>
         <Container style={{ marginTop: '7em' }}>
+          <Route exact path='/' component={Doctor} />
           <Route path='/doctors' component={Doctor} />
           <Route path='/vehicles' component={Vehicle} />
           <Route path='/doctor_apps' component={DoctorApp} />
