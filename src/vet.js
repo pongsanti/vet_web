@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { object } from 'prop-types';
 import { Route, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Menu, Modal, Container, Dropdown, Image, Header, Button, Icon, Segment, Divider } from 'semantic-ui-react';
@@ -27,6 +28,10 @@ const mapStateToProps = state => {
 };
 
 class Vet extends Component {
+  static propTypes = {
+    match: object,
+  };
+
   constructor(props) {
     super(props);
 
