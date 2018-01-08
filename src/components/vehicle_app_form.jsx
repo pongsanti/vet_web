@@ -118,7 +118,7 @@ class VehicleAppForm extends Component {
               value={start_at}
               dateFormat={PICKER_DATE_FORMAT}
               timeFormat={PICKER_TIME_FORMAT}
-              timeConstraints={TIME_CONSTRAINTS} />
+            />
           </Form.Field>
           <Form.Field required>
             <label>End At</label>
@@ -126,7 +126,7 @@ class VehicleAppForm extends Component {
               value={end_at}
               dateFormat={PICKER_DATE_FORMAT}
               timeFormat={PICKER_TIME_FORMAT}
-              timeConstraints={TIME_CONSTRAINTS} />
+            />
           </Form.Field>
           <Button primary size='small' type='submit'>Submit</Button>
           <Button size='small' type='reset' onClick={this.onResetClick.bind(this)}>Reset</Button>
