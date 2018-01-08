@@ -1,12 +1,12 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Header, Form, Button, Dropdown } from 'semantic-ui-react';
 import moment from 'moment';
 import DateTime from 'react-datetime';
 
-import {PICKER_DATE_FORMAT, PICKER_TIME_FORMAT, serializePostData} from './date';
+import { PICKER_DATE_FORMAT, PICKER_TIME_FORMAT, serializePostData } from './date';
 
-import {vehicleGet, vehicleAppPost, vehicleAppGet} from '../actions';
+import { vehicleGet, vehicleAppPost, vehicleAppGet } from '../actions';
 
 const TIME_CONSTRAINTS = {
   hours: {
@@ -20,20 +20,20 @@ const TIME_CONSTRAINTS = {
 }
 
 const mapStateToProps = state => {
-  const {vehicle} = state
+  const { vehicle } = state
   return {
     vehicles: vehicle.vehicles || []
   }
 }
 
 class VehicleAppForm extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props);
 
     this.state = this.defaultState();
   }
 
-  defaultState () {
+  defaultState() {
     const defaultStart = moment().startOf('day').add(8, 'h');
     return {
       vehicle_id: '',
@@ -42,59 +42,61 @@ class VehicleAppForm extends Component {
     }
   }
 
-  componentWillMount () {
-    const {dispatch} = this.props;
+  componentWillMount() {
+    const { dispatch } = this.props;
     dispatch(vehicleGet())
   }
 
-  refreshAppointments () {
-    const {dispatch} = this.props;
+  refreshAppointments() {
+    const { dispatch } = this.props;
     dispatch(vehicleAppGet());
   }
 
-  onSubmit () {
-    const {dispatch} = this.props;
-    const {vehicle_id, start_at, end_at} = this.state;
+  onSubmit() {
+    const { dispatch } = this.props;
+    const { vehicle_id, start_at, end_at } = this.state;
     if (vehicle_id && start_at && end_at && (start_at < end_at)) {
       dispatch(vehicleAppPost(vehicle_id, {
         start_at: serializePostData(start_at),
         end_at: serializePostData(end_at),
       }))
-      .then(this.refreshAppointments.bind(this));
+        .then(this.refreshAppointments.bind(this));
     }
   }
 
-  onFormChange (e, {name, value}) {
+  onFormChange(e, { name, value }) {
     this.setState({ [name]: value });
   }
 
-  onStartAtChange (date) {
-    this.setState({
-      start_at: date,
-      end_at: date.clone().add(1, 'h'),
-    })
+  onStartAtChange(date) {
+    if (typeof date == 'object') {
+      this.setState({
+        start_at: date,
+        end_at: date.clone().add(1, 'h'),
+      });
+    }
   }
 
-  onEndAtChange (date) {
+  onEndAtChange(date) {
     this.setState({
       end_at: date,
-    })
+    });
   }
 
-  vehicleOptions (vehicles) {
+  vehicleOptions(vehicles) {
     return vehicles.map(v => ({
       text: `${v.plate} - ${v.type}`,
       value: v.id,
     }));
   }
 
-  onResetClick () {
+  onResetClick() {
     this.setState(this.defaultState());
   }
 
-  render () {
-    const {vehicles} = this.props;
-    const {vehicle_id, start_at, end_at} = this.state;
+  render() {
+    const { vehicles } = this.props;
+    const { vehicle_id, start_at, end_at } = this.state;
     return (
       <div>
         <Header as='h3'>
@@ -113,22 +115,22 @@ class VehicleAppForm extends Component {
           <Form.Field required>
             <label>Start At</label>
             <DateTime onChange={this.onStartAtChange.bind(this)}
-              value={start_at} 
+              value={start_at}
               dateFormat={PICKER_DATE_FORMAT}
               timeFormat={PICKER_TIME_FORMAT}
-              timeConstraints={TIME_CONSTRAINTS}/>
+              timeConstraints={TIME_CONSTRAINTS} />
           </Form.Field>
           <Form.Field required>
             <label>End At</label>
             <DateTime onChange={this.onEndAtChange.bind(this)}
-              value={end_at} 
+              value={end_at}
               dateFormat={PICKER_DATE_FORMAT}
               timeFormat={PICKER_TIME_FORMAT}
-              timeConstraints={TIME_CONSTRAINTS}/>
-          </Form.Field>            
+              timeConstraints={TIME_CONSTRAINTS} />
+          </Form.Field>
           <Button primary size='small' type='submit'>Submit</Button>
           <Button size='small' type='reset' onClick={this.onResetClick.bind(this)}>Reset</Button>
-        </Form>        
+        </Form>
       </div>
     )
   }
