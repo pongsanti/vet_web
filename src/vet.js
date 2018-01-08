@@ -1,12 +1,12 @@
-import React, {Component} from 'react';
-import { Switch, Route, withRouter } from 'react-router-dom'
+import React, { Component } from 'react';
+import { Route, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Menu, Modal, Container, Dropdown, Image, Header, Button, Icon, Segment, Divider } from 'semantic-ui-react';
 import Doctor from './components/doctor';
 import Vehicle from './components/vehicle';
 import DoctorApp from './components/doctor_app';
 import VehicleApp from './components/vehicle_app';
-import {USER_EMAIL} from './helpers/user';
+import { USER_EMAIL } from './helpers/user';
 
 import history from './history';
 
@@ -16,41 +16,47 @@ import moment from 'moment';
 import BigCalendar from 'react-big-calendar';
 BigCalendar.momentLocalizer(moment);
 
-const ROLE_ADMIN = 'ADMIN';
-const ROLE_USER = 'USER';
+const ROLE_ADMIN = 'admin';
+const ROLE_USER = 'user';
 
 const mapStateToProps = state => {
-  const {ui} = state
+  const { ui } = state;
   return {
     load: ui.load
-  }
-}
+  };
+};
 
 class Vet extends Component {
-  constructor (props) {
-    super(props)
+  constructor(props) {
+    super(props);
 
-    this.state = {
-      role: null
+    const role = props.match.params.role;
+
+    this.state = { role };
+
+    if (role === ROLE_ADMIN) {
+      history.push('/doctors');
+    } else if (role == ROLE_USER) {
+      history.push('/doctor_apps');
     }
   }
 
-  onMenuClick (link) {
-    history.push(`/${link}`)
+  onMenuClick(link) {
+    history.push(`/${link}`);
   }
 
-  onLoginRoleClick (role) {
+  onLoginRoleClick(role) {
     this.setState({ role });
     if (role === ROLE_ADMIN) {
-      history.push(`/doctors`);
+      history.push('/doctors');
     } else if (role == ROLE_USER) {
-      history.push(`/doctor_apps`);
+      history.push('/doctor_apps');
     }
   }
 
-  render () {
-    const {load} = this.props;
-    const {role} = this.state;
+  render() {
+    const { load } = this.props;
+    const { role } = this.state;
     const role_admin = role === ROLE_ADMIN;
     return (
       <div>
@@ -61,7 +67,7 @@ class Vet extends Component {
             </Container>
           </Modal.Content>
         </Modal>
-        {role && 
+        {role &&
           <Menu fixed='top' inverted>
             <Container>
               <Menu.Item as='a' header onClick={this.onLoginRoleClick.bind(this, null)}>
@@ -72,11 +78,11 @@ class Vet extends Component {
                 />
                 Home
               </Menu.Item>
-              { role_admin && <Menu.Item as='a' onClick={this.onMenuClick.bind(this, 'doctors')}><Icon name='doctor' /> Doctors</Menu.Item> }
-              { role_admin && <Menu.Item as='a' onClick={this.onMenuClick.bind(this, 'vehicles')}><Icon name='shipping' /> Vehicles</Menu.Item> }
+              {role_admin && <Menu.Item as='a' onClick={this.onMenuClick.bind(this, 'doctors')}><Icon name='doctor' /> Doctors</Menu.Item>}
+              {role_admin && <Menu.Item as='a' onClick={this.onMenuClick.bind(this, 'vehicles')}><Icon name='shipping' /> Vehicles</Menu.Item>}
               <Menu.Item as='a' onClick={this.onMenuClick.bind(this, 'doctor_apps')}><Icon name='calendar' /> Doctor Apps</Menu.Item>
               <Menu.Item as='a' onClick={this.onMenuClick.bind(this, 'vehicle_apps')}><Icon name='calendar' /> Vehicle Apps</Menu.Item>
-              
+
               <Menu.Menu position='right'>
                 <Menu.Item className='item'>
                   <Icon name='user' />
@@ -94,8 +100,8 @@ class Vet extends Component {
         {role &&
           <Container style={{ marginTop: '7em' }}>
             <Route exact path='/' component={DoctorApp} />
-            { role_admin && <Route path='/doctors' component={Doctor} /> }
-            { role_admin && <Route path='/vehicles' component={Vehicle} /> }
+            {role_admin && <Route path='/doctors' component={Doctor} />}
+            {role_admin && <Route path='/vehicles' component={Vehicle} />}
             <Route path='/doctor_apps' component={DoctorApp} />
             <Route path='/vehicle_apps' component={VehicleApp} />
           </Container>
@@ -112,7 +118,7 @@ class Vet extends Component {
           </Container>
         }
       </div>
-    )
+    );
   }
 }
 
