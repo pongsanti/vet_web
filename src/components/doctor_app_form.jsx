@@ -10,8 +10,8 @@ import { doctorGet, doctorAppPost, doctorAppGet } from '../actions';
 
 const TIME_CONSTRAINTS = {
   hours: {
-    min: 8,
-    max: 15,
+    min: 13,
+    max: 17,
     step: 1
   },
   minutes: {
@@ -34,7 +34,7 @@ class DoctorAppForm extends Component {
   }
 
   defaultState() {
-    const defaultStart = moment().startOf('day').add(8, 'h');
+    const defaultStart = moment().startOf('day').add(13, 'h');
     return {
       doctor_id: '',
       start_at: defaultStart,
@@ -118,6 +118,7 @@ class DoctorAppForm extends Component {
               value={start_at}
               dateFormat={PICKER_DATE_FORMAT}
               timeFormat={PICKER_TIME_FORMAT}
+              timeConstraints={TIME_CONSTRAINTS}
             />
           </Form.Field>
           <Form.Field required>
@@ -126,6 +127,7 @@ class DoctorAppForm extends Component {
               value={end_at}
               dateFormat={PICKER_DATE_FORMAT}
               timeFormat={PICKER_TIME_FORMAT}
+              timeConstraints={TIME_CONSTRAINTS}
             />
           </Form.Field>
           <Button primary size='small' type='submit'>Submit</Button>

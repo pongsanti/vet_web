@@ -10,21 +10,21 @@ import { vehicleGet, vehicleAppPost, vehicleAppGet } from '../actions';
 
 const TIME_CONSTRAINTS = {
   hours: {
-    min: 8,
-    max: 15,
+    min: 13,
+    max: 17,
     step: 1
   },
   minutes: {
     step: 30,
   }
-}
+};
 
 const mapStateToProps = state => {
-  const { vehicle } = state
+  const { vehicle } = state;
   return {
     vehicles: vehicle.vehicles || []
-  }
-}
+  };
+};
 
 class VehicleAppForm extends Component {
   constructor(props) {
@@ -34,17 +34,17 @@ class VehicleAppForm extends Component {
   }
 
   defaultState() {
-    const defaultStart = moment().startOf('day').add(8, 'h');
+    const defaultStart = moment().startOf('day').add(13, 'h');
     return {
       vehicle_id: '',
       start_at: defaultStart,
       end_at: defaultStart,
-    }
+    };
   }
 
   componentWillMount() {
     const { dispatch } = this.props;
-    dispatch(vehicleGet())
+    dispatch(vehicleGet());
   }
 
   refreshAppointments() {
@@ -118,6 +118,7 @@ class VehicleAppForm extends Component {
               value={start_at}
               dateFormat={PICKER_DATE_FORMAT}
               timeFormat={PICKER_TIME_FORMAT}
+              timeConstraints={TIME_CONSTRAINTS}
             />
           </Form.Field>
           <Form.Field required>
@@ -126,13 +127,14 @@ class VehicleAppForm extends Component {
               value={end_at}
               dateFormat={PICKER_DATE_FORMAT}
               timeFormat={PICKER_TIME_FORMAT}
+              timeConstraints={TIME_CONSTRAINTS}
             />
           </Form.Field>
           <Button primary size='small' type='submit'>Submit</Button>
           <Button size='small' type='reset' onClick={this.onResetClick.bind(this)}>Reset</Button>
         </Form>
       </div>
-    )
+    );
   }
 }
 
