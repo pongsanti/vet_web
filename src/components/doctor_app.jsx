@@ -60,6 +60,8 @@ class DoctorApp extends Component {
       start_string: a.start_at,
       end: parseDateToDateObject(a.end_at),
       end_string: a.end_at,
+      creator_name: a.creator_name || '',
+      creator_tel: a.creator_tel || '',
     };
   }
 
@@ -113,7 +115,7 @@ class DoctorApp extends Component {
                   items={doctors}
                   title_field='name'
                   onChange={this.onTogglerChange.bind(this)} />
-              </Segment>            
+              </Segment>
               <BigCalendar style={{minHeight: 700}}
                 step={60}
                 events={events}
@@ -130,7 +132,7 @@ class DoctorApp extends Component {
               {selected && this.eventInfo(selected)}
             </Grid.Column>
           </Grid.Row>
-        </Grid>        
+        </Grid>
       </div>
     )
   }

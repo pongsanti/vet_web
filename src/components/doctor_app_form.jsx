@@ -39,6 +39,8 @@ class DoctorAppForm extends Component {
       doctor_id: '',
       start_at: defaultStart,
       end_at: defaultStart,
+      creator_name: '',
+      creator_tel: '',
     };
   }
 
@@ -54,11 +56,12 @@ class DoctorAppForm extends Component {
 
   onSubmit() {
     const { dispatch } = this.props;
-    const { doctor_id, start_at, end_at } = this.state;
+    const { doctor_id, start_at, end_at, creator_name, creator_tel } = this.state;
     if (doctor_id && start_at && end_at && (start_at < end_at)) {
       dispatch(doctorAppPost(doctor_id, {
         start_at: serializePostData(start_at),
         end_at: serializePostData(end_at),
+        creator_name, creator_tel
       }))
         .then(this.refreshAppointments.bind(this));
     }
@@ -94,9 +97,13 @@ class DoctorAppForm extends Component {
     this.setState(this.defaultState());
   }
 
+  onNameChange (e, {name, value}) {
+    this.setState({ [name]: value });
+  }
+
   render() {
     const { doctors } = this.props;
-    const { doctor_id, start_at, end_at } = this.state;
+    const { doctor_id, start_at, end_at, creator_name, creator_tel } = this.state;
     return (
       <div>
         <Header as='h3'>
@@ -129,6 +136,16 @@ class DoctorAppForm extends Component {
               timeFormat={PICKER_TIME_FORMAT}
               timeConstraints={TIME_CONSTRAINTS}
             />
+          </Form.Field>
+          <Form.Field>
+            <label>Creator name</label>
+            <Form.Input placeholder='Name' name='creator_name' value={creator_name}
+              onChange={this.onNameChange.bind(this)} />
+          </Form.Field>
+          <Form.Field>
+            <label>Tel.</label>
+            <Form.Input placeholder='Tel' name='creator_tel' value={creator_tel}
+              onChange={this.onNameChange.bind(this)} />
           </Form.Field>
           <Button primary size='small' type='submit'>Submit</Button>
           <Button size='small' type='reset' onClick={this.onResetClick.bind(this)}>Reset</Button>

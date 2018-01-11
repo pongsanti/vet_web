@@ -14,12 +14,19 @@ class AppCard extends Component {
 
   render () {
     const {app, meta} = this.props;
-    const {title, start_string, end_string, id, vehicle_id} = app;
+    const {title, start_string, end_string, id, vehicle_id,
+    creator_name, creator_tel} = app;
     return (
       <Card color='black'>
         <Card.Content header={title} meta={meta} />
         <Card.Content description={`${start_string} - ${end_string}`} />
         <Card.Content description={`Originator: ${USER_EMAIL}`} />
+        { creator_name &&
+          <Card.Content description={`Creator: ${creator_name}`} />
+        }
+        { creator_tel &&
+          <Card.Content description={`Tel: ${creator_tel}`} />
+        }
         { vehicle_id &&
           <Card.Content description={`Location: Sukhumvit Rd. (${vehicle_id})`} />
         }
