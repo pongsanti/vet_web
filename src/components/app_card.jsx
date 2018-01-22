@@ -22,7 +22,7 @@ class AppCard extends Component {
         <Card.Content description={`${start_string} - ${end_string}`} />
         <Card.Content description={`Originator: ${USER_EMAIL}`} />
         { creator_name &&
-          <Card.Content description={`Creator: ${creator_name}`} />
+          <Card.Content description={`นัดหมายกับ: ${creator_name}`} />
         }
         { creator_tel &&
           <Card.Content description={`Tel: ${creator_tel}`} />

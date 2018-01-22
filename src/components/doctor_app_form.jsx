@@ -138,7 +138,7 @@ class DoctorAppForm extends Component {
             />
           </Form.Field>
           <Form.Field>
-            <label>Creator name</label>
+            <label>นัดหมายกับ</label>
             <Form.Input placeholder='Name' name='creator_name' value={creator_name}
               onChange={this.onNameChange.bind(this)} />
           </Form.Field>
